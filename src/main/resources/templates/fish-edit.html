@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>観賞魚編集フォーム🐠</title>
+</head>
+<body>
+    <h1>観賞魚を編集する✨</h1>
+    <form action="/fish/update" method="post">
+        <input type="hidden" name="id" th:value="${fish.id}">
+        <label for="name">名前：<input type="text" name="name" id="name" th:value="${fish.name}" required></label><br>
+        <label for="price">価格<input type="number" name="price" id="price" th:value="${fish.price}" required></label><br>
+        <label for="feature">特徴：<input type="text" name="feature" id="feature" th:value="${fish.feature}"></label><br>
+        <label for="review">レビュー：<input type="text" name="review" id="review" th:value="${fish.review}"></label><br>
+        <label for="history">生育歴：<input type="date" name="history" id="history" th:value="${fish.history}"></label><br>
+        <button type="submit">保存する🐟</button>
+    </form>
+    <br>
+    <a href="/fish">一覧に戻る</a>
+</body>
+</html>
