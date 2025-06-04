@@ -6,9 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 
 import com.example.fishapp.model.Fish;
 import com.example.fishapp.repository.FishRepository;
+
+import jakarta.validation.Valid;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,19 +35,23 @@ public class FishController {
     }
     
     @GetMapping("/fish/add")
-    public String showAddForm() {
+    public String showAddForm(Model model) {
+        model.addAttribute("fish", new Fish());
         return "fish-add";
     }
 
     @PostMapping("/fish/add")
     public String addFish(
+        @Valid Fish fish, BindingResult bindingResult, Model model,
         @RequestParam String name,
         @RequestParam int price,
         @RequestParam(required = false) String feature,
         @RequestParam(required = false) String review,
         @RequestParam(required = false) LocalDate history
         ) {
-        Fish fish = new Fish();
+        if (bindingResult.hasErrors()) {
+            return "fish-add";
+        }
         fish.setName(name);
         fish.setPrice(price);
         fish.setFeature(feature);
@@ -63,6 +71,7 @@ public class FishController {
 
     @PostMapping("/fish/update")
     public String updateFish(
+        @Valid Fish fish, BindingResult bindingResult, Model model,
         @RequestParam Long id,
         @RequestParam String name,
         @RequestParam int price,
@@ -70,12 +79,12 @@ public class FishController {
         @RequestParam(required = false) String review,
         @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate history
         ) {
-        Fish fish = fishRepository.findById(id).orElse(null);
-        fish.setName(name);
-        fish.setPrice(price);
-        fish.setFeature(feature);
-        fish.setReview(review);
-        fish.setHistory(history);
+        Fish updateFish = fishRepository.findById(id).orElse(null);
+        updateFish.setName(name);
+        updateFish.setPrice(price);
+        updateFish.setFeature(feature);
+        updateFish.setReview(review);
+        updateFish.setHistory(history);
         
         return "redirect:/fish";
     }

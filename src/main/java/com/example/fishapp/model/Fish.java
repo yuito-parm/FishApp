@@ -3,13 +3,19 @@ package com.example.fishapp.model;
 import java.time.LocalDate;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Min;
 
 @Entity
 public class Fish {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotBlank(message = "名前は必須です")
     private String name;
+
+    @Min(value = 1, message = "価格は1円以上で入力してください")
     private int price;
     private String feature;
     private String review;
