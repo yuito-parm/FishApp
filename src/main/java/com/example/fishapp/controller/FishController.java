@@ -1,6 +1,7 @@
 package com.example.fishapp.controller;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -96,5 +97,13 @@ public class FishController {
         
         return "redirect:/fish";
     }
+
+    @GetMapping("/fish/search")
+    public String searchFish(@RequestParam String keyword, Model model) {
+        List<Fish> fishList = fishRepository.findByNameContaining(keyword);
+        model.addAttribute("fishList", fishList);
+        return "fish-list";
+    }
+    
     
 }
