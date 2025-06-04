@@ -2,6 +2,7 @@ package com.example.fishapp.controller;
 
 import java.time.LocalDate;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 
@@ -21,7 +21,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 public class FishController {
-    private FishRepository fishRepository = new FishRepository();
+    @Autowired
+    private FishRepository fishRepository;
 
     @GetMapping("/fish")
     public String listFish(Model model) {
@@ -55,7 +56,7 @@ public class FishController {
     
     @GetMapping("/fish/edit/{id}")
         public String showEditForm(@PathVariable Long id, Model model) {
-        Fish fish = fishRepository.findById(id);  // idで検索
+        Fish fish = fishRepository.findById(id).orElse(null);  // idで検索
         model.addAttribute("fish", fish);
         return "fish-edit"; // 編集用のHTML
 }
@@ -69,7 +70,7 @@ public class FishController {
         @RequestParam(required = false) String review,
         @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate history
         ) {
-        Fish fish = fishRepository.findById(id);
+        Fish fish = fishRepository.findById(id).orElse(null);
         fish.setName(name);
         fish.setPrice(price);
         fish.setFeature(feature);

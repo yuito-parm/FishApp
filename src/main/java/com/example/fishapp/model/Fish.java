@@ -2,7 +2,12 @@ package com.example.fishapp.model;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.*;
+
+@Entity
 public class Fish {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private int price;
