@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>観賞魚在庫一覧🐠</title>
+</head>
+<body>
+    <h1>観賞魚在庫リスト✨</h1>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>名前</th>
+            <th>価格</th>
+            <th>特徴</th>
+            <th>レビュー</th>
+            <th>生育歴</th>
+        </tr>
+        <tr th:each="fish : ${fishList}">
+            <td th:text="${fish.id}"></td>
+            <td th:text="${fish.name}"></td>
+            <td th:text="${fish.price}"></td>
+            <td th:text="${fish.feature}"></td>
+            <td th:text="${fish.review}"></td>
+            <td th:text="${fish.history}"></td>
+        </tr>
+    </table>
+</body>
+</html>
