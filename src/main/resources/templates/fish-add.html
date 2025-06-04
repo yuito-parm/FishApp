@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>観賞魚登録フォーム🐠</title>
+</head>
+<body>
+    <h1>新しい観賞魚を登録する✨</h1>
+    <form action="/fish/add" method="post">
+        <label for="name">名前：<input type="text" name="name" id="name" required></label><br>
+        <label for="price">価格<input type="number" name="price" id="price" required></label><br>
+        <label for="feature">特徴：<input type="text" name="feature" id="feature"></label><br>
+        <label for="review">レビュー：<input type="text" name="review" id="review"></label><br>
+        <label for="history">生育歴：<input type="date" name="history" id="history" required></label><br>
+        <button type="submit">登録する🐟</button>
+    </form>
+    <br>
+    <a href="/fish">一覧に戻る</a>
+</body>
+</html>
