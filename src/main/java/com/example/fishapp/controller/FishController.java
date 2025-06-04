@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 
@@ -77,5 +79,11 @@ public class FishController {
         return "redirect:/fish";
     }
     
+    @PostMapping("/fish/delete")
+    public String deleteFish(@RequestParam Long id) {
+        fishRepository.deleteById(id);
+        
+        return "redirect:/fish";
+    }
     
 }

@@ -28,8 +28,9 @@
                 <form th:action="@{|/fish/edit/${fish.id}|}" method="get" style="display:inline;">
                     <button type="submit">編集</button>
                 </form>
-                <form action="/fish/delete" method="post">
-                    <button type="submit" style="display: inline;">削除</button>
+                <form action="/fish/delete" method="post" style="display: inline;">
+                    <input type="hidden" name="id" th:value="${fish.id}">
+                    <button type="submit">削除</button>
                 </form>
             </td>
         </tr>

@@ -26,4 +26,8 @@ public class FishRepository {
         }
         fishList.add(fish);
     }
+
+    public void deleteById(Long id) {
+        fishList.removeIf(fish -> fish.getId().equals(id));
+    }
 }
