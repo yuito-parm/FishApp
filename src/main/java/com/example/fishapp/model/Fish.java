@@ -2,6 +2,8 @@ package com.example.fishapp.model;
 
 import java.time.LocalDate;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Min;
@@ -19,6 +21,8 @@ public class Fish {
     private int price;
     private String feature;
     private String review;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate history;
 
     public Long getId() { return id; }

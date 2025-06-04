@@ -64,7 +64,7 @@ public class FishController {
     
     @GetMapping("/fish/edit/{id}")
         public String showEditForm(@PathVariable Long id, Model model) {
-        Fish fish = fishRepository.findById(id).orElse(null);  // idで検索
+        Fish fish = fishRepository.findById(id).orElseThrow();  // idで検索
         model.addAttribute("fish", fish);
         return "fish-edit"; // 編集用のHTML
 }
@@ -85,6 +85,7 @@ public class FishController {
         updateFish.setFeature(feature);
         updateFish.setReview(review);
         updateFish.setHistory(history);
+        fishRepository.save(updateFish);
         
         return "redirect:/fish";
     }
