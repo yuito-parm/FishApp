@@ -3,7 +3,9 @@ package com.example.fishapp.controller;
 import java.time.LocalDate;
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,8 +32,12 @@ public class FishController {
     private FishRepository fishRepository;
 
     @GetMapping("/fish")
-    public String listFish(Model model) {
-        model.addAttribute("fishList", fishRepository.findAll());
+    public String listFish(
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "10") int size,
+        Model model) {
+            org.springframework.data.domain.Page<Fish> fishPage = fishRepository.findAll(PageRequest.of(page, size));
+        model.addAttribute("fishPage", fishPage);
         return "fish-list";
     }
     

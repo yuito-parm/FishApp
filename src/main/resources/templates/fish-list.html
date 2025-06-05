@@ -12,6 +12,13 @@
         <button type="submit">検索🔍</button>
     </form>
     <a href="/fish">クリア</a>
+    <div>
+    <span th:text="'ページ ' + ${fishPage.number + 1} + ' / ' + ${fishPage.totalPages}"></span>
+    <div>
+        <a th:if="${fishPage.hasPrevious()}" th:href="@{/fish(page=${fishPage.number - 1},size=${fishPage.size})}">前へ</a>
+        <a th:if="${fishPage.hasNext()}" th:href="@{/fish(page=${fishPage.number + 1},size=${fishPage.size})}">次へ</a>
+    </div>
+</div>
     <table border="1">
         <tr>
             <th>ID</th>
@@ -22,7 +29,7 @@
             <th>生育歴</th>
             <th>編集/削除</th>
         </tr>
-        <tr th:each="fish : ${fishList}">
+        <tr th:each="fish : ${fishPage}">
             <td th:text="${fish.id}"></td>
             <td th:text="${fish.name}"></td>
             <td th:text="${fish.price}"></td>
