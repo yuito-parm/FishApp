@@ -1,9 +1,6 @@
 package com.example.fishapp.controller;
 
 import java.time.LocalDate;
-import java.util.List;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -105,9 +102,13 @@ public class FishController {
     }
 
     @GetMapping("/fish/search")
-    public String searchFish(@RequestParam String keyword, Model model) {
-        List<Fish> fishList = fishRepository.findByNameContaining(keyword);
-        model.addAttribute("fishList", fishList);
+    public String searchFish(@RequestParam String keyword,
+                            @RequestParam(defaultValue = "0") int page,
+                            @RequestParam(defaultValue = "10") int size,
+                            Model model) {
+        org.springframework.data.domain.Page<Fish> fishPage = fishRepository.findByNameContaining(keyword, PageRequest.of(page, size));
+        model.addAttribute("fishPage", fishPage);
+        model.addAttribute("keyword", keyword);
         return "fish-list";
     }
     

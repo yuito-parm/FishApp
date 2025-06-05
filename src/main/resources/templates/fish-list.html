@@ -15,8 +15,8 @@
     <div>
     <span th:text="'ページ ' + ${fishPage.number + 1} + ' / ' + ${fishPage.totalPages}"></span>
     <div>
-        <a th:if="${fishPage.hasPrevious()}" th:href="@{/fish(page=${fishPage.number - 1},size=${fishPage.size})}">前へ</a>
-        <a th:if="${fishPage.hasNext()}" th:href="@{/fish(page=${fishPage.number + 1},size=${fishPage.size})}">次へ</a>
+        <a th:if="${fishPage.hasPrevious()}" th:href="@{/fish/search(keyword=${keyword},page=${fishPage.number - 1},size=${fishPage.size})}">前へ</a>
+        <a th:if="${fishPage.hasNext()}" th:href="@{/fish/search(keyword=${keyword},page=${fishPage.number + 1},size=${fishPage.size})}">次へ</a>
     </div>
 </div>
     <table border="1">
@@ -29,7 +29,7 @@
             <th>生育歴</th>
             <th>編集/削除</th>
         </tr>
-        <tr th:each="fish : ${fishPage}">
+        <tr th:each="fish : ${fishPage.content}">
             <td th:text="${fish.id}"></td>
             <td th:text="${fish.name}"></td>
             <td th:text="${fish.price}"></td>
