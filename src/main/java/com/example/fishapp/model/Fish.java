@@ -1,6 +1,8 @@
 package com.example.fishapp.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -42,4 +44,10 @@ public class Fish {
 
     public LocalDate getHistory() { return history; }
     public void setHistory(LocalDate history) { this.history = history; }
+
+    @OneToMany(mappedBy = "fish", cascade = CascadeType.ALL)
+    private List<History> histories = new ArrayList<>();
+
+    public List<History> getHistories() { return histories; }
+    public void setHistories(List<History> histories) { this.histories = histories; }
 }

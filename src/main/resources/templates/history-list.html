@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>おさかな詳細</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+        <h2 th:text="'【' + ${fish.name} + '】の詳細ページ'"></h2>
+        <ul>
+            <li>値段：<span th:text="${fish.price}"></span>円</li>
+            <li>特徴：<span th:text="${fish.feature}"></span></li>
+            <li>レビュー：<span th:text="${fish.review}"></span></li>
+        </ul>
+
+        <h3>この魚の生育履歴一覧</h3>
+        <table>
+            <tr>
+                <th>日付</th>
+                <th>メモ</th>
+                <th>編集/削除</th>
+            </tr>
+            <tr th:each="history : ${fish.histories}">
+                <td th:text="${history.date}"></td>
+                <td th:text="${history.memo}"></td>
+                <td>
+                    <a th:href="@{/history/edit/{historyId}(historyId=${history.id})}">編集</a>
+                    <form th:action="@{/history/delete/{historyId}(historyId=${history.id})}" method="post">
+                        <button type="submit" onclick="return confirm('本当に削除しますか？');">削除</button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+</body>
+</html>
