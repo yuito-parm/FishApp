@@ -9,5 +9,5 @@ import com.example.fishapp.model.History;
 
 public interface HistoryRepository extends JpaRepository<History, Long> {
     List<History> findByFish(Fish fish);
-    
+    History findTopByFishIdOrderByDateDesc(Long fishId);
 }

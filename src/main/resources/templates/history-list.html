@@ -15,13 +15,15 @@
         </ul>
 
         <h3>この魚の生育履歴一覧</h3>
+        <a th:href="@{/fish/{id}(id=${fish.id}, order=asc)}" th:if="${param.order[0]} == null or ${param.order[0]} == 'desc'">古い順</a>
+        <a th:href="@{/fish/{id}(id=${fish.id}, order=desc)}" th:if="${param.order[0]} == 'asc'">新しい順</a>
         <table>
             <tr>
                 <th>日付</th>
                 <th>メモ</th>
                 <th>編集/削除</th>
             </tr>
-            <tr th:each="history : ${fish.histories}">
+            <tr th:each="history : ${sortedHistories}">
                 <td th:text="${history.date}"></td>
                 <td th:text="${history.memo}"></td>
                 <td>

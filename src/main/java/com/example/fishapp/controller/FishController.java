@@ -1,6 +1,10 @@
 package com.example.fishapp.controller;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -118,9 +122,17 @@ public class FishController {
     }
     
     @GetMapping("/fish/{id}")
-    public String showHistoryList(@PathVariable Long id,Model model) {
+    public String showHistoryList(@PathVariable Long id, String order,Model model) {
         Fish fish = fishRepository.findById(id).orElseThrow();
+
+        List<History> sorterHistories = new ArrayList<>(fish.getHistories());
+        if ("desc".equals(order) || order == null) {
+            sorterHistories.sort(Comparator.comparing(History::getDate).reversed());
+        } else if ("asc".equals(order)) {
+            sorterHistories.sort(Comparator.comparing(History::getDate));
+        }
         model.addAttribute("fish", fish);
+        model.addAttribute("sortedHistories", sorterHistories);
         return "history-list";
     }
     
