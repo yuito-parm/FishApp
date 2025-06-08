@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生育履歴編集</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+    <form th:action="@{/history/edit/{id}(id=${history.id})}" th:object="${history}" method="post">
+        <label>日付：<input th:field="*{date}" type="date" required></label><br>
+        <label>メモ：<input th:field="*{memo}" type="text"></label>
+        <button type="submit">更新</button>
+    </form>
+</body>
+</html>
